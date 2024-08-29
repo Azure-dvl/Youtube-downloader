@@ -3,5 +3,5 @@
 ### Instalar dependencias
 ```sh
 chmod +x install.sh
-.install.sh
+./install.sh
 ```
