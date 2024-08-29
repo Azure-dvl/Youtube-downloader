@@ -32,6 +32,7 @@ async def main():
         comando+='-f mp4 --restrict-filenames '
     if '-h' in sys.argv:
         Argumentos()
+        sys.exit()
 
     for arg in sys.argv:
         if(arg.startswith("https://") and link==''):
