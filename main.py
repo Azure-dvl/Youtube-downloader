@@ -23,6 +23,10 @@ async def main():
     link = ''
     comando = ''
 
+    for arg in sys.argv:
+        if(arg.startswith("https://") and link==''):
+            link = arg
+
     if '-p' in sys.argv:
         comando+='-f mp4 --restrict-filenames --yes-playlist --no-overwrites '
     if '-s' in sys.argv:
@@ -33,10 +37,6 @@ async def main():
     if '-h' in sys.argv:
         Argumentos()
         sys.exit()
-
-    for arg in sys.argv:
-        if(arg.startswith("https://") and link==''):
-            link = arg
 
     if(link==''):
         link=input('Ingrese el link: ') 
