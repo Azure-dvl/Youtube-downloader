@@ -28,12 +28,12 @@ async def main():
             link = arg
 
     if '-p' in sys.argv:
-        comando+='-f mp4 --restrict-filenames --yes-playlist --no-overwrites '
+        comando+='-S "res:480" --restrict-filenames --yes-playlist --no-overwrites '
     if '-s' in sys.argv:
         idioma = await Subtitulos(link)
         comando+=f'--write-sub --sub-lang {idioma} '
     if '-d' in sys.argv:
-        comando+='-f mp4 --restrict-filenames '
+        comando+='-S "res:480" --restrict-filenames '
     if '-h' in sys.argv:
         Argumentos()
         sys.exit()
@@ -54,9 +54,9 @@ async def main():
             link=input('Ingrese el link: ')
             for a in arg:
                 if a=='p':
-                    comando+='-f mp4 --restrict-filenames --yes-playlist --no-overwrites '
+                    comando+='-S "res:480" --restrict-filenames --yes-playlist --no-overwrites '
                 elif a=='d':
-                    comando+='-f mp4 --restrict-filenames '
+                    comando+='-S "res:480" --restrict-filenames '
                 elif a=='s':
                     idioma = await Subtitulos(link)
                     comando+=f'--write-sub --sub-lang {idioma} '
