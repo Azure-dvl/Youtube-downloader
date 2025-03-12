@@ -15,9 +15,13 @@
 
 ## How to use
 -h   Help
+
 -v   Download
+
 -m   Download music
+
 -s   Download with subtitle
+
 
 ```sh
 python main.py [Link] [commands]
