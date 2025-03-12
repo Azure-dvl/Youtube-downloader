@@ -3,12 +3,10 @@
 [X] Download music mp3
 [X] Download with subtitles
 [X] Download playlist
+
 [ ] Descarga de archivos
 [ ] Descarga de carpetas
 [ ] Gui
-
-## Bugs
-[ ] The available formats and subtitles
 
 ## How to use
 -h   Help
