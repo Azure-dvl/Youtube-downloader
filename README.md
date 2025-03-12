@@ -1,10 +1,22 @@
-# Descargador de Youtube Arch Linux usando yt-dlp
+# Youtube download with python
+[X] Download videos with one selected resolution
+[X] Download music mp3
+[ ] Download with subtitles
+[ ] Download playlist
+[ ] Gui
 
-## Problemas
-[ ] Desbordamiento con la descarga de las playlist
+## How to use
+-h   Help
+-v   Download video
+-m   Download music
+-p   Download a playlist
+-s   Subtitle for video and playlist
 
-### Instalar dependencias
 ```sh
-chmod +x install.sh
-./install.sh
+python main.py [Link] [commands]
+```
+
+## Install dependencies
+```sh
+pip install -r requirement.txt
 ```

@@ -1,75 +1,28 @@
-#!/bin/python
-
 import sys
-import asyncio
+from cli import CLI
 
-async def Descargar(comando, link):
-    directorio="-o $HOME/Downloads/'%('title')'s.'%('ext')'s "
-    num = await asyncio.create_subprocess_shell(f"yt-dlp {comando} {directorio} {link}")
-    await num.communicate()
-    print('Fin de la descarga')
-
-def Argumentos():
-    print('-h Ayuda\n-d Descargar un solo archivo\n-p Descargar playlist\n-s Descarga con subtitulos')
-
-async def Subtitulos(link):
-    num = await asyncio.create_subprocess_shell(f"yt-dlp --list-subs {link}")
-    await num.communicate()
-    idioma=input('Ingrese el lenguaje del subtitulo: ')
-    
-    return idioma
-
-async def main():
+def main():
+    arg = []
     link = ''
-    comando = ''
-
-    for arg in sys.argv:
-        if(arg.startswith("https://") and link==''):
-            link = arg
-
-    if '-p' in sys.argv:
-        comando+='-S "res:480" --restrict-filenames --yes-playlist --no-overwrites '
-    if '-s' in sys.argv:
-        idioma = await Subtitulos(link)
-        comando+=f'--write-sub --sub-lang {idioma} '
-    if '-d' in sys.argv:
-        comando+='-S "res:480" --restrict-filenames '
-    if '-h' in sys.argv:
-        Argumentos()
-        sys.exit()
-
-    if(link==''):
-        link=input('Ingrese el link: ') 
     
-    while True:
-        await Descargar(comando, link)
-        entrada=input('Ingrese el link, h para cambiar de argumentos o q para salir): ')
-        if entrada=='q':
-            print('^~^')
-            break   
-        elif entrada=='h':
-            Argumentos()
-            comando=''
-            arg=input('Ingrese los argumentos: ')
-            link=input('Ingrese el link: ')
-            for a in arg:
-                if a=='p':
-                    comando+='-S "res:480" --restrict-filenames --yes-playlist --no-overwrites '
-                elif a=='d':
-                    comando+='-S "res:480" --restrict-filenames '
-                elif a=='s':
-                    idioma = await Subtitulos(link)
-                    comando+=f'--write-sub --sub-lang {idioma} '
-        else:
-            link=entrada
+    for a in sys.argv:
+        if(a.startswith("https://") and link==''):
+            link = a
+    if '-h' in sys.argv:
+        arg.append('-h')
+    if '-s' in sys.argv:
+        arg.append('-s')
+    if '-v' in sys.argv:
+        arg.append('-v')
+    if '-p' in sys.argv:
+        arg.append('-p')
+    if '-m' in sys.argv:
+        arg.append('-m')
+        
+    cli = CLI(arg=arg, link=link)
+    cli.cli()
+            
+
 
 if __name__=='__main__':
-    try:
-        asyncio.run(main())
-    except KeyboardInterrupt:
-        print("Detencion forzada.")
-        num = input('Deseas correr el programa de nuevo? y o n: ')
-        if num=='y':
-            asyncio.run(main())
-        else:
-            print('Gracias x usarnos')
+    main()
