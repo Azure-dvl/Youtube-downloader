@@ -1,11 +1,16 @@
 # Youtube download using yt_dpl written in python
 [X] Download videos with one selected resolution
+
 [X] Download music mp3
+
 [X] Download with subtitles
+
 [X] Download playlist
 
 [ ] Descarga de archivos
+
 [ ] Descarga de carpetas
+
 [ ] Gui
 
 ## How to use
