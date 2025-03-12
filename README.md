@@ -1,16 +1,18 @@
 # Youtube download with python
 [X] Download videos with one selected resolution
 [X] Download music mp3
-[ ] Download with subtitles
-[ ] Download playlist
+[X] Download with subtitles
+[X] Download playlist
 [ ] Gui
+
+## Bugs
+[ ] The available formats and subtitles
 
 ## How to use
 -h   Help
--v   Download video
+-v   Download
 -m   Download music
--p   Download a playlist
--s   Subtitle for video and playlist
+-s   Download with subtitle
 
 ```sh
 python main.py [Link] [commands]

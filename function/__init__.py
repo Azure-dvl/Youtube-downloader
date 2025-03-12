@@ -11,7 +11,7 @@ class Functions:
     )
     
     def __init__(self):
-        folder='./Video/'
+        self.folder='./Downloads'
         self.logger = logging.getLogger('yt_dlp_custom')
             
     def get_format(self, info):
@@ -32,49 +32,55 @@ class Functions:
             'quiet': True,
         }
         with YoutubeDL(ydl_opts) as ydl:
-            self.logger.info('Getting list of formats availables')
+            self.logger.info('Getting info ...')
             return ydl.extract_info(link, download=False, process=False)
     
-    def download_stream(self, link:str, sub:bool):
-        '''Download the video with the format selected and (if U wanted) the subtitle'''
+    def download(self, link:str, sub:bool, playlist:bool):
+        if(playlist):
+            self.folder += '//Playlists/%(playlist_uploader)s ## %(playlist)s/%(title)s ## %(uploader)s ## %(id)s.%(ext)s'
+        else:
+            self.folder += '//Videos/%(title)s ## %(uploader)s ## %(id)s.%(ext)s'
+            
         info = self.get_info(link)
         format = self.get_format(info)
         if(sub):
             subtitle = self.get_subtitle(info)
         ydl_opts = {
+            'outtmpl': self.folder,
+            'ignoreerrors': True,
+            'abort_on_unavailable_fragments': True,
+            'logger': self.logger,
+            'quiet': True,
             'format': format,
             'writesubtitles': sub,
             'subtitleslangs': subtitle,
             'subtitlesformat': 'vtt',
         }
         with YoutubeDL(ydl_opts) as ydl:
+            self.logger.info('Downloading ...')
             ydl.download(link)
-    
-    def download_play(self, link:str, sub:bool):
-        '''Download the playlist with the format selected and (if U wanted) the subtitles'''
-        info = self.get_info(link)
-        format = self.get_format(info)
-        if(sub):
-            subtitle = self.download_sub(format)
-        ydl_opts = {
-            'format': format,
-            'writesubtitles': sub,
-            'subtitleslangs': subtitle,
-            'subtitlesformat': 'srt'
-        }
+            self.logger.info('Download complete!')
     
     def get_subtitle(self, info):
         '''Get the list of all the subtitles available'''
+        subs = []
         with YoutubeDL() as ydl:
             list_subtitles = info.get('subtitles', {})
             print('List of subtitles availables')
             for lang, sub_info in list_subtitles.items():
                 print(f"Language: {lang}")
-            return input('Insert the language short: ')
+            subs.append(input('Insert the language short: '))
+            return subs
     
     def download_music(self, link):
         '''Extract and download the music of the video'''
+        self.folder += '//Music/%(title)s ## %(uploader)s ## %(id)s.%(ext)s'
         ydl_opts = {
+            'outtmpl': self.folder,
+            'ignoreerrors': True,
+            'abort_on_unavailable_fragments': True,
+            'logger': self.logger,
+            'quiet': True,
             'format': 'm4a/bestaudio/best',
             'postprocessors': [{
                 'key': 'FFmpegExtractAudio',
@@ -82,4 +88,6 @@ class Functions:
             }],
         }
         with YoutubeDL(ydl_opts) as ydl:
+            self.logger.info('Downloading ...')
             ydl.download(link)
+            self.logger.info('Download complete!')

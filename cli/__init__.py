@@ -24,11 +24,12 @@ class CLI:
                 elif '-m' == a:
                     self.fun.download_music(link=self.link)
                 elif '-p' == a:
-                    self.fun.download_play(link=self.link, sub=self.sub)
-                elif '-v' == a:
-                    self.fun.download_stream(link=self.link, sub=self.sub)
+                    if(self.link.startswith('https://youtube.com/playlist')):
+                        self.fun.download(link=self.link, sub=self.sub, playlist=True)
+                    elif(self.link.startswith('https://youtube.com/playlist')):
+                        self.fun.download(link=self.link, sub=self.sub, playlist=False)
         else:
             self.options()
     
     def options(self):
-        print('-h   help\n-v   video\n-m   music\n-p   playlist\n-s   with subtitle')
+        print('-h   help\n-v   download\n-m   download music\n-s   download with subtitle')
