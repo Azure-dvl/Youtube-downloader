@@ -12,10 +12,8 @@ def main():
         arg.append('-h')
     if '-s' in sys.argv:
         arg.append('-s')
-    if '-v' in sys.argv:
-        arg.append('-v')
-    if '-p' in sys.argv:
-        arg.append('-p')
+    if '-d' in sys.argv:
+        arg.append('-d')
     if '-m' in sys.argv:
         arg.append('-m')
         

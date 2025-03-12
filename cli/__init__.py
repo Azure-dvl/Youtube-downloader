@@ -23,10 +23,10 @@ class CLI:
                     self.sub = True
                 elif '-m' == a:
                     self.fun.download_music(link=self.link)
-                elif '-p' == a:
-                    if(self.link.startswith('https://youtube.com/playlist')):
+                elif '-d' == a:
+                    if(self.link.startswith("https://youtube.com/playlist")):
                         self.fun.download(link=self.link, sub=self.sub, playlist=True)
-                    elif(self.link.startswith('https://youtube.com/playlist')):
+                    elif(self.link.startswith("https://youtu.be")):
                         self.fun.download(link=self.link, sub=self.sub, playlist=False)
         else:
             self.options()
