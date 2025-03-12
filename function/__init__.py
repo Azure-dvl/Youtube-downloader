@@ -30,8 +30,10 @@ class Functions:
     def entries(self, info):
         return info.get('entries', [])
     
-    def get_format(self, info, playlist:bool):
-        '''Get all the video formats available'''
+    def get_all(self, info, sub:bool, playlist:bool):
+        '''Get all the formats available'''
+        format = ''
+        subtitle = ''
         ydl_opts={
             'logger': self.logger,
             'quiet': True,
@@ -45,30 +47,25 @@ class Functions:
                 
                 link = self.get_info(url)
                 list_formats = ydl.list_formats(link)
+                format = input("Format's id: ")
+                if(sub):
+                    subtitle = self.get_subtitle(link)
             
             else:
                 list_formats = ydl.list_formats(info)
-            return input("Format's id: ")
+                format = input("Format's id: ")
+                if(sub):
+                    subtitle = self.get_subtitle(info)
+            return format, subtitle
     
-    def get_subtitle(self, info, playlist:bool):
+    def get_subtitle(self, info):
         '''Get the list of all the subtitles available'''
         subs = []
-        if(playlist):
-            url = ''
-            
-            for video in self.entries(info):
-                url = video.get('url')
-            
-            link = self.get_info(url)
-            list_subtitles = link.get('subtitles', {})
-        
-        else:
-            list_subtitles = info.get('subtitles', {})
-        
+        list_subtitles = info.get('subtitles', {})
         print('List of subtitles availables')
         
         for lang, sub_info in list_subtitles.items():
-            print(lang)
+            print(f"Language: {lang}")
 
         subs.append(input('Insert the language short: '))
         return subs
@@ -76,32 +73,24 @@ class Functions:
     def download(self, link:str, sub:bool, playlist:bool):
         if(playlist):
             self.folder += '/Playlists/%(playlist)s/%(title)s.%(ext)s'
+        
         else:
             self.folder += '/Videos/%(title)s.%(ext)s'
             
         info = self.get_info(link)
-        if playlist:
-            format = self.get_format(info, playlist=True)
-        else:
-            format = self.get_format(info, playlist=False)
-        if(sub):
-            if(playlist):
-                subtitle = self.get_subtitle(info, playlist=True)
-            else:
-                subtitle = self.get_subtitle(info, playlist=False)
+        format, subtitle = self.get_all(info, sub=sub, playlist=playlist)
+        
         ydl_opts = {
             'outtmpl': self.folder,
             'ignoreerrors': True,
             'abort_on_unavailable_fragments': True,
-            'logger': self.logger,
-            'quiet': True,
             'format': format,
             'writesubtitles': sub,
             'subtitleslangs': subtitle,
             'subtitlesformat': 'vtt',
         }
         with YoutubeDL(ydl_opts) as ydl:
-            self.logger.info('Downloading ...')
+            self.logger.info('Starting download')
             ydl.download(link)
             self.logger.info('Download complete!')
     
