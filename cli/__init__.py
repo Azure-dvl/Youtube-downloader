@@ -28,6 +28,8 @@ class CLI:
                         self.fun.download(link=self.link, sub=self.sub, playlist=True)
                     elif(self.link.startswith("https://youtu.be")):
                         self.fun.download(link=self.link, sub=self.sub, playlist=False)
+                    else:
+                        self.fun.download(link=self.link, sub=False, playlist=False)
         else:
             self.options()
     
