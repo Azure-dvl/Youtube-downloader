@@ -7,7 +7,7 @@
 
 [X] Download playlist
 
-[ ] Descarga de archivos
+[X] Descarga de archivos
 
 [ ] Descarga de carpetas
 
