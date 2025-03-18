@@ -1,11 +1,20 @@
+import logging.config
 import sys
-from function import Functions
+
+from function.download import Download
+from function.youtube import Youtube
 
 class CLI:
+    logging.basicConfig(
+        level = logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s',
+    )
+    
     def __init__(self, arg:list[str], link:str):
+        logger_youtube = logging.getLogger('yt_dlp_custom')
         self.arg = arg
         self.link = link
-        self.fun = Functions()
+        self.yt = Youtube(logger=logger_youtube)
+        self.dw = Download(logguer=logger_youtube)
         self.sub = False
     
     def cli(self):
@@ -22,16 +31,16 @@ class CLI:
                 elif '-s' == a:
                     self.sub = True
                 elif '-m' == a:
-                    self.fun.download_music(link=self.link)
-                elif '-d' == a:
+                    self.yt.download_music(link=self.link)
+                elif '-v' == a:
                     if(self.link.startswith("https://youtube.com/playlist")):
-                        self.fun.download(link=self.link, sub=self.sub, playlist=True)
+                        self.yt.download(link=self.link, sub=self.sub, playlist=True)
                     elif(self.link.startswith("https://youtu.be")):
-                        self.fun.download(link=self.link, sub=self.sub, playlist=False)
+                        self.yt.download(link=self.link, sub=self.sub, playlist=False)
                     else:
-                        self.fun.download(link=self.link, sub=False, playlist=False)
+                        self.dw.download(link=self.link, recursive=False)
         else:
             self.options()
     
     def options(self):
-        print('-h   help\n-v   download\n-m   download music\n-s   download with subtitle')
+        print('-h   help\n-v   download\n-m   download music\n-s   download with subtitle\n[commands] [link]')
