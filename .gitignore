@@ -1,2 +1,5 @@
+.Downloads/
 .vscode/
-.vscode/settings.json
+.venv/
+__pycache__
+
