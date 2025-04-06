@@ -19,15 +19,13 @@ class CLI:
     
     def cli(self):
         print('--------------------- Welcome --------------------')
-    
-        if(self.link==''):
-            self.link=input('Please insert the YouTube link or exit the Program: ')
-
         if len(self.arg)>0:
             for a in self.arg:
                 if '-h' == a:
                     self.options()
                     sys.exit()
+                if(self.link==''):
+                    self.link=input('Please insert the YouTube link or exit the Program: ')
                 elif '-s' == a:
                     self.sub = True
                 elif '-m' == a:
