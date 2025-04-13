@@ -5,7 +5,7 @@ class Youtube:
     '''Class for all the manage of the yt_dlp lib'''
     
     def __init__(self, logger):
-        self.folder='./Downloads'
+        self.folder='~/Downloads'
         self.logger = logger
         
             

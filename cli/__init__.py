@@ -37,8 +37,10 @@ class CLI:
                         self.yt.download(link=self.link, sub=self.sub, playlist=False)
                     else:
                         self.dw.download(link=self.link, recursive=False)
+                elif '-r' == a:
+                    self.dw.download(link=self.link, recursive=True)
         else:
             self.options()
     
     def options(self):
-        print('-h   help\n-v   download\n-m   download music\n-s   download with subtitle\n[commands] [link]')
+        print('-h   help\n-v   download\n-m   download music\n-s   download with subtitle\n-r download folder\n[commands] [link]')

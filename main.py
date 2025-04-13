@@ -16,6 +16,8 @@ def main():
         arg.append('-v')
     if '-m' in sys.argv:
         arg.append('-m')
+    if '-r' in sys.argv:
+        arg.append('-r')
         
     cli = CLI(arg=arg, link=link)
     cli.cli()
