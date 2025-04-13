@@ -1,4 +1,7 @@
 # Youtube download using yt_dpl written in python
+
+### Video and music downloader
+
 [X] Download videos with one selected resolution
 
 [X] Download music mp3
