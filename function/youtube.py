@@ -39,7 +39,6 @@ class Youtube:
             url_info = self.get_info(url)
             format = self.get_format(url_info)
             if(sub):
-                print(url_info)
                 subtitle = self.get_subtitle(url_info)
         else:
             format = self.get_format(info)
@@ -53,12 +52,13 @@ class Youtube:
         list_formats = info.get('formats', [])
         print('-------------------- List of formats availables --------------------')
         for f in list_formats:
-            if f.get('resolution')!='audio only' and f.get('filesize', 'N/A')!='N/A' and f.get('ext')!='mhtml' and f.get('format_note', 'N/A')!='N/A':
+            if (f.get('vcodec') != 'none' and f.get('acodec') != 'none' and f.get('filesize', 'N/A') != 'N/A' and f.get('ext') != 'mhtml'):
                 print(
                     f"ID: {f['format_id']}, "
                     f"Size: {utils.format_bytes(f.get('filesize'))} Mb, "
                     f"Format: {f.get('ext')}, "
-                    f"Resolucion: {f.get('format_note')}"
+                    f"Resolucion: {f.get('format_note')}, "
+                    f"Codecs: Video:{f.get('vcodec')} Audio:{f.get('acodec')}"
                 )
         return input("Format's id: ")
     
@@ -90,9 +90,13 @@ class Youtube:
             'ignoreerrors': True,
             'abort_on_unavailable_fragments': True,
             'format': format,
+            'merge_output_format': 'mp4',
+            'audioquality': '0',
             'writesubtitles': sub,
             'subtitleslangs': subtitle,
             'subtitlesformat': 'vtt',
+            # 'cookies-from-browser': 'brave',
+            # 'cookies': '../cookies.txt'
         }
         with YoutubeDL(ydl_opts) as ydl:
             self.logger.info('Starting download ...')
@@ -107,6 +111,7 @@ class Youtube:
             'ignoreerrors': True,
             'abort_on_unavailable_fragments': True,
             'format': 'm4a/bestaudio/best',
+            # 'cookies': '../cookies.txt',
             'postprocessors': [{
                 'key': 'FFmpegExtractAudio',
                 'preferredcodec': 'mp3',

@@ -3,6 +3,7 @@ import sys
 
 from function.download import Download
 from function.youtube import Youtube
+from function.others import generar_cookies
 
 class CLI:
     logging.basicConfig(
@@ -16,6 +17,10 @@ class CLI:
         self.yt = Youtube(logger=logger_youtube)
         self.dw = Download(logguer=logger_youtube)
         self.sub = False
+
+        # generar_cookies()
+
+
     
     def cli(self):
         print('--------------------- Welcome --------------------')
