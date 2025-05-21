@@ -58,7 +58,6 @@ class Youtube:
                     f"Size: {utils.format_bytes(f.get('filesize'))} Mb, "
                     f"Format: {f.get('ext')}, "
                     f"Resolucion: {f.get('format_note')}, "
-                    f"Codecs: Video:{f.get('vcodec')} Audio:{f.get('acodec')}"
                 )
         return input("Format's id: ")
     
