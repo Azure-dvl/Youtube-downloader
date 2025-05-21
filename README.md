@@ -20,7 +20,7 @@
 
 -h   Help
 
--v   Download
+-v   Download (videos and playlist)
 
 -m   Download music
 
