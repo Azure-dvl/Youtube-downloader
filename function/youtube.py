@@ -94,8 +94,6 @@ class Youtube:
             'writesubtitles': sub,
             'subtitleslangs': subtitle,
             'subtitlesformat': 'vtt',
-            # 'cookies-from-browser': 'brave',
-            # 'cookies': '../cookies.txt'
         }
         with YoutubeDL(ydl_opts) as ydl:
             self.logger.info('Starting download ...')
@@ -110,7 +108,6 @@ class Youtube:
             'ignoreerrors': True,
             'abort_on_unavailable_fragments': True,
             'format': 'm4a/bestaudio/best',
-            # 'cookies': '../cookies.txt',
             'postprocessors': [{
                 'key': 'FFmpegExtractAudio',
                 'preferredcodec': 'mp3',
