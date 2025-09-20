@@ -1,4 +1,4 @@
-# Youtube download using yt_dpl written in python
+# Downloader using yt_dpl
 
 ## Video and music downloader
 
