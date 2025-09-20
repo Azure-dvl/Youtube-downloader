@@ -1,39 +1,13 @@
 # Downloader using yt_dpl
 
-## Video and music downloader
+## Install dependencies
 
-[X] Download videos with one selected resolution
-
-[X] Download music mp3
-
-[X] Download with subtitles
-
-[X] Download playlist
-
-[X] Descarga de archivos
-
-[X] Descarga de carpetas
-
-[ ] Gui
+```sh
+pip install -r requirement.txt
+```
 
 ## How to use
 
--h   Help
-
--v   Download (videos and playlist)
-
--m   Download music
-
--s   Download with subtitle
-
--r   Download folder
-
-
 ```sh
 python main.py [Link] [commands]
-```
-
-## Install dependencies
-```sh
-pip install -r requirement.txt
 ```
